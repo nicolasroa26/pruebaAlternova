@@ -17,46 +17,7 @@ import styles from '../styles.js';
 const Store = () =>{
     const [cartItem, setCartItem] = useState({});
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState({
-        "products": [
-          {
-            "id": 1,
-            "name": "Base Gris",
-            "unit_price": 400,
-            "stock": 5,
-            "image": "https://www.lego.com/cdn/cs/set/assets/blt3baed37200b0845a/11024.png"
-          },
-          {
-            "id": 2,
-            "name": "Llavero de Nueva York",
-            "unit_price": 250,
-            "stock": 8,
-            "image": "https://www.lego.com/cdn/cs/set/assets/blt841ff4b13275f885/854032.jpg"
-          },
-          {
-            "id": 3,
-            "name": "Llavero de Black Panther",
-            "unit_price": 120,
-            "stock": 0,
-            "image": "https://www.lego.com/cdn/cs/set/assets/blte57c48b15e5c3dd7/854189.png"
-          },
-          {
-            "id": 4,
-            "name": "Postal de Nueva York",
-            "unit_price": 500,
-            "stock": 1,
-            "image": "https://www.lego.com/cdn/cs/set/assets/bltae0305908b9ef97a/40519.png"
-          },
-          {
-            "id": 5,
-            "name": "Portalápices",
-            "unit_price": 90,
-            "stock": 2,
-            "image": "https://www.lego.com/cdn/cs/set/assets/blt79e9504b3cc67f96/41936.jpg"
-          }
-        ]
-    });
-    const [getdata, setGetData] = useState({});
+    const [getProductsData, setProductsGetData] = useState({});
     const navigation = useNavigation()
 
     const getData = async() =>{
@@ -70,7 +31,7 @@ const Store = () =>{
                 `${API_BASE_URL}${API_URL_PATH.products}`,
                 config,
             );
-            setData(res.data) 
+            setProductsGetData(res.data) 
         } catch (e) {
             console.log(e)
         }
@@ -106,7 +67,7 @@ const Store = () =>{
             />
             </TouchableOpacity>
             </View>
-            {getData === null || getData.products === undefined? <Text style={{textAlign:"center", marginTop :20}}>No se ha podido cargar la informacion</Text>:getdata.products.map((val) =>(
+            {getProductsData === null || getProductsData.products === undefined? <Text style={{textAlign:"center", marginTop :20}}>No se ha podido cargar la informacion</Text>:getProductsData.products.map((val) =>(
                 <TouchableOpacity onPress={()=>navigation.navigate("Product", { data: val })}>
                     <ButtonProduct data={val}/>
                 </TouchableOpacity>
